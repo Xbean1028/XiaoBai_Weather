@@ -1,11 +1,11 @@
-package com.coolweather.android.util;
+package com.bean.xiaobai_weather.util;
 
 import android.text.TextUtils;
 
-import com.coolweather.android.db.City;
-import com.coolweather.android.db.County;
-import com.coolweather.android.db.Province;
-import com.coolweather.android.gson.Weather;
+import com.bean.xiaobai_weather.db.City;
+import com.bean.xiaobai_weather.db.County;
+import com.bean.xiaobai_weather.db.Province;
+import com.bean.xiaobai_weather.gson.Weather;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;

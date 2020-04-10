@@ -1,10 +1,9 @@
-package com.coolweather.android;
+package com.bean.xiaobai_weather;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +14,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.coolweather.android.db.City;
-import com.coolweather.android.db.County;
-import com.coolweather.android.db.Province;
-import com.coolweather.android.util.HttpUtil;
-import com.coolweather.android.util.Utility;
+import com.bean.xiaobai_weather.db.City;
+import com.bean.xiaobai_weather.db.County;
+import com.bean.xiaobai_weather.db.Province;
+import com.bean.xiaobai_weather.util.HttpUtil;
+import com.bean.xiaobai_weather.util.Utility;
 
 import org.litepal.crud.DataSupport;
 

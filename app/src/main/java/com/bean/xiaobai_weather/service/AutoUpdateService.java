@@ -1,4 +1,4 @@
-package com.coolweather.android.service;
+package com.bean.xiaobai_weather.service;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -8,15 +8,10 @@ import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.coolweather.android.R;
-import com.coolweather.android.WeatherActivity;
-import com.coolweather.android.gson.Weather;
-import com.coolweather.android.util.HttpUtil;
-import com.coolweather.android.util.Utility;
+import com.bean.xiaobai_weather.gson.Weather;
+import com.bean.xiaobai_weather.util.HttpUtil;
+import com.bean.xiaobai_weather.util.Utility;
 
 import java.io.IOException;
 

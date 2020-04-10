@@ -1,4 +1,4 @@
-package com.coolweather.android;
+package com.bean.xiaobai_weather;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
