@@ -5,6 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="15dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:text="小白天气"
+        android:textColor="#fff"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/degree_text"

@@ -1,7 +1,7 @@
 package com.bean.xiaobai_weather.gson;
 
 import com.google.gson.annotations.SerializedName;
-
+//生活建议
 public class Suggestion {
 
     @SerializedName("comf")

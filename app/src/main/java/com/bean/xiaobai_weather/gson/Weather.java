@@ -9,14 +9,16 @@ public class Weather {
     public String status;
 
     public Basic basic;
+    public Update update;
 
-    public AQI aqi;
-
+    //public AQI aqi;
+    //public Suggestion lifestyle;
     public Now now;
-
-    public Suggestion suggestion;
 
     @SerializedName("daily_forecast")
     public List<Forecast> forecastList;
+
+    @SerializedName("lifestyle")
+    public List<Lifestyle> lifestyleList;
 
 }

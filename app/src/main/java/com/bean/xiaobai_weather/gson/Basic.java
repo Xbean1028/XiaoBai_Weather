@@ -1,22 +1,13 @@
 package com.bean.xiaobai_weather.gson;
 
 import com.google.gson.annotations.SerializedName;
-
+//城市的基本信息
 public class Basic {
 
-    @SerializedName("city")
+    @SerializedName("location")
     public String cityName;
 
-    @SerializedName("id")
+    @SerializedName("cid")
     public String weatherId;
-
-    public Update update;
-
-    public class Update {
-
-        @SerializedName("loc")
-        public String updateTime;
-
-    }
 
 }

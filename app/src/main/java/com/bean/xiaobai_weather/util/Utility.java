@@ -1,6 +1,7 @@
 package com.bean.xiaobai_weather.util;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.bean.xiaobai_weather.db.City;
 import com.bean.xiaobai_weather.db.County;
@@ -11,6 +12,8 @@ import com.google.gson.Gson;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static android.content.ContentValues.TAG;
 
 public class Utility {
 
@@ -88,8 +91,10 @@ public class Utility {
     public static Weather handleWeatherResponse(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
-            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather");
+            Log.d(TAG, "bean1"+jsonObject);
+            JSONArray jsonArray = jsonObject.getJSONArray("HeWeather6");
             String weatherContent = jsonArray.getJSONObject(0).toString();
+            Log.d(TAG, "bean2"+weatherContent);
             return new Gson().fromJson(weatherContent, Weather.class);
         } catch (Exception e) {
             e.printStackTrace();
