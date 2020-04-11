@@ -103,18 +103,4 @@ public class Utility {
         return null;
     }
 
-    public static AQI handleAQIResponse(String response) {
-        try {
-            JSONObject jsonObject = new JSONObject(response);
-            Log.d(TAG, "bean1"+jsonObject);
-            JSONArray jsonArray = jsonObject.getJSONArray("air_now_city");
-            String weatherContent = jsonArray.getJSONObject(0).toString();
-            Log.d(TAG, "bean2"+weatherContent);
-            return new Gson().fromJson(weatherContent, AQI.class);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
 }
