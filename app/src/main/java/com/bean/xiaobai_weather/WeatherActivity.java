@@ -41,20 +41,40 @@ public class WeatherActivity extends AppCompatActivity {
 
     public SwipeRefreshLayout swipeRefresh;
 
-    private ScrollView weatherLayout;
+    private ScrollView weatherLayout;//滚动视图对象
 
     private Button navButton;
 
     private TextView titleCity;
 
-    private TextView titleUpdateTime;
+    private TextView titleUpdateTime;//基本信息--更新时间
 
     private TextView degreeText;
 
     private TextView weatherInfoText;
+    private TextView weatherlat;//基本信息--纬度
+    private TextView weatherlon;//基本信息--经度
+    //实时天气
+    private TextView degreetext;//实时天气信息--温度
+    private TextView fltext;//实时天气信息--体感温度
+    private TextView weatherinfo_text;//实时天气信息--天气信息
+    private TextView humtext;//实时天气信息--相对湿度
+    private TextView dirtext;//实时天气信息--风向
+    private TextView sctext;//实时天气信息--风力
+    private TextView spdtext;//实时天气信息--风速
+    private TextView pcpntext;//实时天气信息--降水量
 
-    private LinearLayout forecastLayout;
-    private LinearLayout lifestyleLayout;
+    private TextView aqiText;//空气质量--空气质量指数
+    private TextView coText;//空气质量--一氧化碳指数
+    private TextView no2Text;//空气质量--二氧化氮指数
+    private TextView o3Text;//空气质量--臭氧指数
+    private TextView pm10Text;//空气质量--PM10指数
+    private TextView pm25Text;//空气质量--PM2.5指数
+    private TextView qltyText;//空气质量--空气质量水平
+    private TextView so2Text;//空气质量--二氧化硫指数
+
+    private LinearLayout forecastLayout;//线性布局对象--预报天气
+    private LinearLayout lifestyleLayout;//线性布局对象--建议
     private ImageView bingPicImg;
 
     private String mWeatherId;
@@ -74,10 +94,30 @@ public class WeatherActivity extends AppCompatActivity {
         weatherLayout = (ScrollView) findViewById(R.id.weather_layout);
         titleCity = (TextView) findViewById(R.id.title_city);
         titleUpdateTime = (TextView) findViewById(R.id.title_update_time);
-        degreeText = (TextView) findViewById(R.id.degree_text);
-        weatherInfoText = (TextView) findViewById(R.id.weather_info_text);
+        //degreeText = (TextView) findViewById(R.id.degree_text);
+        //weatherInfoText = (TextView) findViewById(R.id.weather_info_text);
         forecastLayout = (LinearLayout) findViewById(R.id.forecast_layout);
         lifestyleLayout = (LinearLayout)findViewById(R.id.lifestytle_layout);
+        weatherlat = (TextView)findViewById(R.id.weather_lat);
+        weatherlon = (TextView)findViewById(R.id.weather_lon);
+        //实时天气
+        degreetext = (TextView)findViewById(R.id.degree_text);
+        fltext = (TextView)findViewById(R.id.fl_text);
+        weatherinfo_text = (TextView)findViewById(R.id.weather_info_text);
+        humtext = (TextView)findViewById(R.id.hum_text);
+        dirtext = (TextView)findViewById(R.id.dir_text);
+        sctext = (TextView)findViewById(R.id.sc_text);
+        spdtext = (TextView)findViewById(R.id.spd_text);
+        pcpntext = (TextView)findViewById(R.id.pcpn_text);
+        //空气质量
+        aqiText = (TextView) findViewById(R.id.aqi_text);//空气质量--空气质量指数
+        coText = (TextView) findViewById(R.id.co_text);//空气质量--一氧化碳指数
+        no2Text = (TextView) findViewById(R.id.no2_text);//空气质量--二氧化氮指数
+        o3Text = (TextView) findViewById(R.id.o3_text);//空气质量--臭氧指数
+        pm10Text = (TextView) findViewById(R.id.pm10_text); //空气质量--PM10指数
+        pm25Text = (TextView) findViewById(R.id.pm25_text);//空气质量--PM2.5指数
+        qltyText = (TextView) findViewById(R.id.qlty_text);//空气质量--空气质量水平
+        so2Text = (TextView) findViewById(R.id.so2_text); //空气质量--二氧化硫指数
 
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
@@ -96,12 +136,14 @@ public class WeatherActivity extends AppCompatActivity {
             weatherLayout.setVisibility(View.INVISIBLE);
             requestWeather(mWeatherId);
         }
+        //设置下拉刷新监听器
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 requestWeather(mWeatherId);
             }
         });
+        //请求新选择城市的天气信息
         navButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,8 +152,10 @@ public class WeatherActivity extends AppCompatActivity {
         });
         String bingPic = prefs.getString("bing_pic", null);
         if (bingPic != null) {
+            //如果有缓存数据就直接使用Glide来加载这张图片
             Glide.with(this).load(bingPic).into(bingPicImg);
         } else {
+            //如果没有缓存数据就调用loadBingPic()方法去请求今日的必应背景图
             loadBingPic();
         }
     }
@@ -122,6 +166,7 @@ public class WeatherActivity extends AppCompatActivity {
     public void requestWeather(final String weatherId) {
         String weatherUrl = "https://free-api.heweather.net/s6/weather?location=" + weatherId + "&key=e59171beb7a84b0c9483bc75910f4b68";
         //String weatherUrl = "http://guolin.tech/api/weather?cityid=" + weatherId + "&key=bc0418b57b2d4918819d3974ac1285d9";
+        //String airUrl = "https://free-api.heweather.net/s6/air/now?location=" + weatherId + "&key=e59171beb7a84b0c9483bc75910f4b68";
         HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
@@ -197,10 +242,24 @@ public class WeatherActivity extends AppCompatActivity {
         String updateTime = weather.update.updateTime.split(" ")[1];
         String degree = weather.now.temperature + "℃";
         String weatherInfo = weather.now.info;
+        String lat = weather.basic.lat;
+        String lon = weather.basic.lon;
         titleCity.setText(cityName);
         titleUpdateTime.setText(updateTime);
-        degreeText.setText(degree);
-        weatherInfoText.setText(weatherInfo);
+        //degreeText.setText(degree);
+        //weatherInfoText.setText(weatherInfo);
+        weatherlat.setText("纬度:"+lat);
+        weatherlon.setText("经度:"+lon);
+        //实时
+        degreetext.setText(degree);
+        fltext.setText(weather.now.fl+ "℃");
+        weatherinfo_text.setText(weatherInfo);
+        humtext.setText(weather.now.hum+ "%");
+        dirtext.setText(weather.now.wind_dir);
+        sctext.setText(weather.now.wind_sc+ "级");
+        spdtext.setText(weather.now.wind_spd+ "m/s");
+        pcpntext.setText(weather.now.pcpn+ "mm");
+
         forecastLayout.removeAllViews();
         for (Forecast forecast : weather.forecastList) {
             View view = LayoutInflater.from(this).inflate(R.layout.forecast_item, forecastLayout, false);
@@ -226,25 +285,25 @@ public class WeatherActivity extends AppCompatActivity {
                     temp = "舒适度：";
                     break;
                 case "drsg":
-                    temp = "穿衣建议：";
+                    temp = "穿衣指数：";
                     break;
                 case "flu":
-                    temp = "感冒：";
+                    temp = "感冒指数：";
                     break;
                 case "sport":
-                    temp = "运动：";
+                    temp = "运动建议：";
                     break;
                 case "trav":
-                    temp = "旅行：";
+                    temp = "旅行指数：";
                     break;
                 case "uv":
-                    temp = "紫外线：";
+                    temp = "紫外线指数：";
                     break;
                 case "cw":
-                    temp = "洗车：";
+                    temp = "洗车指数：";
                     break;
                 case "air":
-                    temp ="空气质量：";
+                    temp ="空气质量指数：";
                     break;
             }
             lifename.setText(temp);
@@ -252,6 +311,18 @@ public class WeatherActivity extends AppCompatActivity {
             lifetxt.setText(life.txt);
             lifestyleLayout.addView(view);
         }
+
+//        if(weather.aqi != null){
+//            aqiText.setText(weather.aqi.city.aqi);
+//            coText.setText(weather.aqi.city.co);
+//            no2Text.setText(weather.aqi.city.no2);
+//            o3Text.setText(weather.aqi.city.o3);
+//            pm10Text.setText(weather.aqi.city.pm10);
+//            pm25Text.setText(weather.aqi.city.pm25);
+//            qltyText.setText(weather.aqi.city.qlty);
+//            so2Text.setText(weather.aqi.city.so2);
+//        }
+
 //        if (weather.aqi != null) {
 //            aqiText.setText(weather.aqi.city.aqi);
 //            pm25Text.setText(weather.aqi.city.pm25);

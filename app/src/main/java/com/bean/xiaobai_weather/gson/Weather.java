@@ -10,9 +10,7 @@ public class Weather {
 
     public Basic basic;
     public Update update;
-
     //public AQI aqi;
-    //public Suggestion lifestyle;
     public Now now;
 
     @SerializedName("daily_forecast")

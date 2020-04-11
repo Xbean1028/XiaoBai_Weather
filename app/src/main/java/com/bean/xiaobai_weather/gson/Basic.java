@@ -10,4 +10,7 @@ public class Basic {
     @SerializedName("cid")
     public String weatherId;
 
+    public String lat;
+    public String lon;
+
 }
