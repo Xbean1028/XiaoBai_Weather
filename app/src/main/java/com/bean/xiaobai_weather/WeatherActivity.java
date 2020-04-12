@@ -85,6 +85,8 @@ public class WeatherActivity extends AppCompatActivity {
     private String Gprovince;
     private String Gcity;
     private String Gdistrict;
+    private LeftLargeView llView;
+
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
     //声明定位回调监听器
@@ -164,8 +166,11 @@ public class WeatherActivity extends AppCompatActivity {
             mWeatherId = weather.basic.weatherId;
             showWeatherInfo(weather);
                 try {
-                    String location = "auto_ip";
-                    HeWeatherConfig.init("ad1f9cb4bc114c719ab5c56a728b4220",Gdistrict);//定位本地
+                    String location  =Gdistrict;
+//                    if (Gdistrict==null){
+//                        location = mWeatherId;;
+//                    }
+                    HeWeatherConfig.init("ad1f9cb4bc114c719ab5c56a728b4220",location);//定位本地
                     showWeatherlittle();
                 } catch (Exception e) {
                     Log.e(TAG,Log.getStackTraceString(e));
@@ -188,6 +193,16 @@ public class WeatherActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 requestWeather(mWeatherId);
+                try {
+                    String location  =Gdistrict;
+                    if (Gdistrict==null){
+                        location = mWeatherId;;
+                    }
+                    HeWeatherConfig.init("ad1f9cb4bc114c719ab5c56a728b4220",location);//定位本地
+                    showWeatherlittle();
+                } catch (Exception e) {
+                    Log.e(TAG,Log.getStackTraceString(e));
+                }
             }
         });
         //请求新选择城市的天气信息
@@ -386,7 +401,9 @@ public class WeatherActivity extends AppCompatActivity {
     }
     private void showWeatherlittle() {
         //左侧大布局右侧双布局控件
-        LeftLargeView llView = (LeftLargeView) findViewById(R.id.ll_view);
+//        LeftLargeView llView = (LeftLargeView) findViewById(R.id.ll_view);
+        llView = (LeftLargeView) findViewById(R.id.ll_view);
+
         llView.setOnClickListener(null);
         llView.setEnabled(false);//不允许点击，因为我不想跳转
         //取消默认背景
@@ -397,9 +414,12 @@ public class WeatherActivity extends AppCompatActivity {
 //获取左侧大布局
         LinearLayout leftLayout = llView.getLeftLayout();
 //获取右上布局
+        leftLayout.removeAllViews();//清理一下
         LinearLayout rightTopLayout = llView.getRightTopLayout();
 //获取右下布局
+        rightTopLayout.removeAllViews();//清理一下
         LinearLayout rightBottomLayout = llView.getRightBottomLayout();
+        rightBottomLayout.removeAllViews();//清理一下
 
 //设置布局的背景圆角角度（单位：dp），颜色，边框宽度（单位：px），边框颜色
         llView.setStroke(5, Color.parseColor("#313a44"), 1, Color.BLACK);
