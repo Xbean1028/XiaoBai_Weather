@@ -41,17 +41,11 @@ import okhttp3.Response;
 public class WeatherActivity extends AppCompatActivity {
 
     public DrawerLayout drawerLayout;
-
     public SwipeRefreshLayout swipeRefresh;//下拉刷新
-
     private ScrollView weatherLayout;//滚动视图对象
-
     private Button navButton;
-
     private TextView titleCity;
-
-    private TextView titleUpdateTime;//基本信息--更新时间
-
+    private TextView titleUpdateTime;//基本信息--更新时间Location_Activity
     private TextView degreeText;
 
     private TextView weatherInfoText;
@@ -133,13 +127,13 @@ public class WeatherActivity extends AppCompatActivity {
             Weather weather = Utility.handleWeatherResponse(weatherString);
             mWeatherId = weather.basic.weatherId;
             showWeatherInfo(weather);
-            try {
-                String location = "auto_ip";
-                HeWeatherConfig.init("ad1f9cb4bc114c719ab5c56a728b4220",mWeatherId);
-                showWeatherlittle();
-            } catch (Exception e) {
-                Log.e(TAG,Log.getStackTraceString(e));
-            }
+                try {
+                    String location = "auto_ip";
+                    HeWeatherConfig.init("ad1f9cb4bc114c719ab5c56a728b4220",mWeatherId);
+                    showWeatherlittle();
+                } catch (Exception e) {
+                    Log.e(TAG,Log.getStackTraceString(e));
+                }
         } else {
             // 无缓存时去服务器查询天气
             mWeatherId = getIntent().getStringExtra("weather_id");
@@ -361,7 +355,6 @@ public class WeatherActivity extends AppCompatActivity {
         llView.setEnabled(false);//不允许点击，因为我不想跳转
         //取消默认背景
         llView.setDefaultBack(false);
-        //llView.setBackgroundColor(8000);
 ////设置布局的背景圆角角度，颜色，边框宽度，边框颜色
 //        llView.setStroke(5, Color.parseColor("#313a44"), 1, Color.BLACK);
 
@@ -382,7 +375,7 @@ public class WeatherActivity extends AppCompatActivity {
         llView.addTemp(rightTopLayout, 14, Color.WHITE);//温度描述
         //llView.addTemp(leftLayout, 40, Color.WHITE);
 //添加温度图标到右上布局，第二个参数为图标宽高（宽高1：1，单位：dp）
-        llView.addWeatherIcon(leftLayout, 60,0,0,0,0);//温度描述
+        llView.addWeatherIcon(leftLayout, 60);//温度描述
         //llView.addWeatherIcon(rightTopLayout, 14);
 //添加预警图标到右上布局
         llView.addAlarmIcon(rightTopLayout, 14);

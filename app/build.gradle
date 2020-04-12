@@ -32,4 +32,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     /*解析json*/
     compile files('lib/HeWeather_Plugin_SDK_Android_V1.4.jar')
+    compile files('lib/AMap_Location_V4.9.0_20200302.jar')
 }
