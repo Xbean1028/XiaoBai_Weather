@@ -4,34 +4,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clickable="false"
     android:layout_margin="15dp">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:text="小白天气"
-        android:textColor="#fff"
-        android:textSize="20sp" />
-
-    <!--<TextView-->
-        <!--android:id="@+id/degree_text"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="end"-->
-        <!--android:textColor="#fff"-->
-        <!--android:textSize="60sp" />-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/weather_info_text"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="end"-->
-        <!--android:textColor="#fff"-->
-        <!--android:textSize="30sp" />-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:orientation="horizontal">
 
         <TextView
@@ -52,5 +31,46 @@
             android:textSize="16sp" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:orientation="horizontal">
+
+        <com.heweather.plugin.view.LeftLargeView
+            android:id="@+id/ll_view"
+            android:layout_width="match_parent"
+            android:clickable="false"
+            android:background="#8000"
+            android:layout_height="60dp"/>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:text="小白天气"
+        android:textColor="#fff"
+        android:textSize="20sp" />
+
+
+    <!--<TextView-->
+        <!--android:id="@+id/degree_text"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="end"-->
+        <!--android:textColor="#fff"-->
+        <!--android:textSize="60sp" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/weather_info_text"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="end"-->
+        <!--android:textColor="#fff"-->
+        <!--android:textSize="30sp" />-->
+
+
 
 </LinearLayout>

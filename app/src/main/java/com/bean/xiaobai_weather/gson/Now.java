@@ -9,6 +9,7 @@ public class Now {
 
     @SerializedName("cond_txt")
     public String info;  //天气
+    public String cond_code;  //天气
 
     public String fl; //体感温度
     public String wind_dir;//风向
