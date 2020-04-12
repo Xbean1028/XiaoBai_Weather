@@ -41,6 +41,11 @@ import com.heweather.plugin.view.LeftLargeView;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
@@ -329,8 +334,19 @@ public class WeatherActivity extends AppCompatActivity {
             TextView infoText = (TextView) view.findViewById(R.id.info_text);
             TextView maxText = (TextView) view.findViewById(R.id.max_text);
             TextView minText = (TextView) view.findViewById(R.id.min_text);
-            dateText.setText(forecast.date);
-            infoText.setText(forecast.cond_txt_d+"/"+forecast.cond_txt_n);
+            TextView dateweekday = (TextView) view.findViewById(R.id.date_weekday);
+            String []date = new String[3];
+            date = forecast.date.split("-");
+            //时间转换星期
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            ParsePosition pos = new ParsePosition(0);
+            Date strtodate = formatter.parse(forecast.date, pos);
+
+            String weekday = getWeekOfDate(strtodate);
+            dateweekday.setText(weekday);
+
+            dateText.setText(date[1]+'/'+date[2]);
+            infoText.setText(forecast.cond_txt_d);
             maxText.setText(forecast.tmp_max+ "℃");
             minText.setText(forecast.tmp_min+ "℃");
             forecastLayout.addView(view);
@@ -385,17 +401,7 @@ public class WeatherActivity extends AppCompatActivity {
 //            so2Text.setText(weather.aqi.city.so2);
 //        }
 
-//        if (weather.aqi != null) {
-//            aqiText.setText(weather.aqi.city.aqi);
-//            pm25Text.setText(weather.aqi.city.pm25);
-//        }
-//        String comfort = "舒适度：" + weather.lifestyle.comfort.info;
-//        String carWash = "洗车指数：" + weather.lifestyle.carWash.info;
-//        String sport = "运行建议：" + weather.lifestyle.sport.info;
-//        comfortText.setText(comfort);
-//        carWashText.setText(carWash);
-//        sportText.setText(sport);
-//        weatherLayout.setVisibility(View.VISIBLE);
+
         Intent intent = new Intent(this, AutoUpdateService.class);
         startService(intent);
     }
@@ -476,7 +482,10 @@ public class WeatherActivity extends AppCompatActivity {
 
         //获取最近3s内精度最高的一次定位结果：
         //设置setOnceLocationLatest(boolean b)接口为true，启动定位时SDK会返回最近3s内精度最高的一次定位结果。如果设置其为true，setOnceLocation(boolean b)接口也会被设置为true，反之不会，默认为false。
-        mLocationOption.setOnceLocationLatest(true);
+        //mLocationOption.setOnceLocationLatest(true);
+        //获取一次定位结果：
+        //该方法默认为false。
+        mLocationOption.setOnceLocation(true);
         //设置是否返回地址信息（默认返回地址信息）
         mLocationOption.setNeedAddress(true);
         //设置是否允许模拟位置,默认为false，不允许模拟位置
@@ -532,6 +541,17 @@ public class WeatherActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static String getWeekOfDate(Date dt) {
+        String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+        //String[] weekDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(dt);
+        int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
+        if (w < 0)
+            w = 0;
+        return weekDays[w];
     }
 
 }

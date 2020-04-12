@@ -18,7 +18,7 @@
 
     <LinearLayout
         android:id="@+id/forecast_layout"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </LinearLayout>
