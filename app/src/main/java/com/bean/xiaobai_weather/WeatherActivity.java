@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -331,7 +332,10 @@ public class WeatherActivity extends AppCompatActivity {
         for (Forecast forecast : weather.forecastList) {
             View view = LayoutInflater.from(this).inflate(R.layout.forecast_item, forecastLayout, false);
             TextView dateText = (TextView) view.findViewById(R.id.date_text);
-            TextView infoText = (TextView) view.findViewById(R.id.info_text);
+            TextView infoTextd = (TextView) view.findViewById(R.id.info_text_d);
+            TextView infoTextn = (TextView) view.findViewById(R.id.info_text_n);
+//            ImageView icond = (ImageView)findViewById(R.id.icon_d);
+//            ImageView iconn = (ImageView)findViewById(R.id.icon_n);
             TextView maxText = (TextView) view.findViewById(R.id.max_text);
             TextView minText = (TextView) view.findViewById(R.id.min_text);
             TextView dateweekday = (TextView) view.findViewById(R.id.date_weekday);
@@ -346,7 +350,13 @@ public class WeatherActivity extends AppCompatActivity {
             dateweekday.setText(weekday);
 
             dateText.setText(date[1]+'/'+date[2]);
-            infoText.setText(forecast.cond_txt_d);
+            //获得图
+            String imageicond = "m"+forecast.cond_code_d;
+            //Drawable icon_d = this.getResources(imageicond);
+            infoTextd.setText(forecast.cond_txt_d);
+            //icond.setImageDrawable(R.drawable.imageicond);
+            infoTextn.setText(forecast.cond_txt_n);
+//            iconn.setImageIcon("m"+forecast.cond_code_d);
             maxText.setText(forecast.tmp_max+ "℃");
             minText.setText(forecast.tmp_min+ "℃");
             forecastLayout.addView(view);
@@ -544,7 +554,7 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
     public static String getWeekOfDate(Date dt) {
-        String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
+        String[] weekDays = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
         //String[] weekDays = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
         Calendar cal = Calendar.getInstance();
         cal.setTime(dt);
