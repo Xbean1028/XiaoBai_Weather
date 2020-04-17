@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.bean.xiaobai_weather.db.City;
 import com.bean.xiaobai_weather.db.County;
+import com.bean.xiaobai_weather.db.DBManager;
 import com.bean.xiaobai_weather.db.Province;
 import com.bean.xiaobai_weather.gson.AQI;
 import com.bean.xiaobai_weather.gson.Weather;
@@ -96,7 +97,10 @@ public class Utility {
             JSONArray jsonArray = jsonObject.getJSONArray("HeWeather6");
             String weatherContent = jsonArray.getJSONObject(0).toString();
             Log.d(TAG, "bean2"+weatherContent);
-            return new Gson().fromJson(weatherContent, Weather.class);
+            //String location = jsonArray.getJSONObject(0).getJSONObject("location").toString();
+            Weather back = new Gson().fromJson(weatherContent, Weather.class);
+            DBManager.updateInfoByCity(back.basic.cityName,weatherContent);
+            return back;
         } catch (Exception e) {
             e.printStackTrace();
         }

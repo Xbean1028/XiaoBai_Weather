@@ -14,6 +14,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.bean.xiaobai_weather.db.DBManager;
 import com.bumptech.glide.Glide;
 import com.bean.xiaobai_weather.gson.Forecast;
 import com.bean.xiaobai_weather.gson.Lifestyle;
@@ -38,7 +40,7 @@ import com.bean.xiaobai_weather.util.Utility;
 import com.heweather.plugin.view.HeContent;
 import com.heweather.plugin.view.HeWeatherConfig;
 import com.heweather.plugin.view.LeftLargeView;
-
+import com.bean.xiaobai_weather.city_manager.CityActivity;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -47,12 +49,15 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+
+import static android.content.ContentValues.TAG;
 
 public class WeatherActivity extends AppCompatActivity {
 
@@ -107,6 +112,7 @@ public class WeatherActivity extends AppCompatActivity {
 
     private String mWeatherId;
     public static final String TAG = "ContentValues";
+    List<String> cityList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -166,16 +172,24 @@ public class WeatherActivity extends AppCompatActivity {
         navButton = (Button) findViewById(R.id.nav_button);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather", null);
+
+        cityList = DBManager.queryAllCityName();//获取数据库包含的城市信息列表
+        Boolean Flag_intent = false;
+
         if (weatherString != null) {
             // 有缓存时直接解析天气数据
+            Flag_intent = false;
+            Log.e(TAG,"bean falsedenzhi");
             Weather weather = Utility.handleWeatherResponse(weatherString);
-            mWeatherId = weather.basic.weatherId;
+            mWeatherId = weather.basic.cityName;
+            //mWeatherId = weather.basic.weatherId;
+            if (!cityList.contains(mWeatherId)&&!TextUtils.isEmpty(mWeatherId)) {
+                cityList.add(mWeatherId);
+                DBManager.addCityInfo(mWeatherId,"");
+            }
             showWeatherInfo(weather);
                 try {
                     String location  =Gdistrict;
-//                    if (Gdistrict==null){
-//                        location = mWeatherId;;
-//                    }
                     HeWeatherConfig.init("ad1f9cb4bc114c719ab5c56a728b4220",location);//定位本地
                     showWeatherlittle();
                 } catch (Exception e) {
@@ -183,16 +197,25 @@ public class WeatherActivity extends AppCompatActivity {
                 }
         } else {
             // 无缓存时去服务器查询天气
-            mWeatherId = getIntent().getStringExtra("weather_id");
-            weatherLayout.setVisibility(View.INVISIBLE);
+            mWeatherId = getIntent().getStringExtra("weather_name");
+            //mWeatherId = getIntent().getStringExtra("weather_id");
+            Log.d(TAG, "bean weather_name"+mWeatherId);
+            if (!cityList.contains(mWeatherId)&&!TextUtils.isEmpty(mWeatherId)) {
+                cityList.add(mWeatherId);
+                DBManager.addCityInfo(mWeatherId,"");
+            }
+            Log.d(TAG, "bean DBManager"+mWeatherId);
+            //weatherLayout.setVisibility(View.INVISIBLE);
             requestWeather(mWeatherId);
+            Log.d(TAG, "bean requestWeather"+mWeatherId);
             try {
-                String location = "auto_ip";
-                HeWeatherConfig.init("ad1f9cb4bc114c719ab5c56a728b4220",mWeatherId);
+                String location  =Gdistrict;
+                HeWeatherConfig.init("ad1f9cb4bc114c719ab5c56a728b4220",location);//定位本地
                 showWeatherlittle();
             } catch (Exception e) {
                 Log.e(TAG,Log.getStackTraceString(e));
             }
+
         }
         //设置下拉刷新监听器
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -215,7 +238,10 @@ public class WeatherActivity extends AppCompatActivity {
         navButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(GravityCompat.START);
+//                drawerLayout.openDrawer(GravityCompat.START);
+                Log.d(TAG, "bean3"+cityList);
+                Intent intent = new Intent(v.getContext(),CityActivity.class);
+                startActivity(intent);
             }
         });
         String bingPic = prefs.getString("bing_pic", null);
@@ -248,6 +274,7 @@ public class WeatherActivity extends AppCompatActivity {
                             editor.putString("weather", responseText);
                             editor.apply();
                             mWeatherId = weather.basic.weatherId;
+
                             showWeatherInfo(weather);
                         } else {
                             if (weather == null){
@@ -492,10 +519,11 @@ public class WeatherActivity extends AppCompatActivity {
 
         //获取最近3s内精度最高的一次定位结果：
         //设置setOnceLocationLatest(boolean b)接口为true，启动定位时SDK会返回最近3s内精度最高的一次定位结果。如果设置其为true，setOnceLocation(boolean b)接口也会被设置为true，反之不会，默认为false。
-        //mLocationOption.setOnceLocationLatest(true);
+        mLocationOption.setOnceLocationLatest(true);
         //获取一次定位结果：
         //该方法默认为false。
-        mLocationOption.setOnceLocation(true);
+        //mLocationOption.setOnceLocation(true);
+
         //设置是否返回地址信息（默认返回地址信息）
         mLocationOption.setNeedAddress(true);
         //设置是否允许模拟位置,默认为false，不允许模拟位置

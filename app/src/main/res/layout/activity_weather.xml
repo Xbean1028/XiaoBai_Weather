@@ -52,20 +52,20 @@
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
-        <fragment
-            android:id="@+id/choose_area_fragment"
-            android:name="com.bean.xiaobai_weather.ChooseAreaFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            />
-        <fragment
-            android:id="@+id/choose_area_saved"
-            android:name="com.bean.xiaobai_weather.ChooseAreaFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            />
+        <!--<fragment-->
+            <!--android:id="@+id/choose_area_fragment"-->
+            <!--android:name="com.bean.xiaobai_weather.ChooseAreaFragment"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="start"-->
+            <!--/>-->
+        <!--<fragment-->
+            <!--android:id="@+id/choose_area_saved"-->
+            <!--android:name="com.bean.xiaobai_weather.ChooseAreaFragment"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="end"-->
+            <!--/>-->
 
     </android.support.v4.widget.DrawerLayout>
 

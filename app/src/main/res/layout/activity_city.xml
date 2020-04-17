@@ -3,46 +3,87 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
-        android:id="@+id/city_top_layout"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="#F5F5F5">
-        <ImageView
-            android:id="@+id/city_iv_back"
-            android:layout_marginLeft="10dp"
-            android:src="@mipmap/icon_back"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-        <ImageView
-            android:id="@+id/city_iv_delete"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@mipmap/icon_write"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"/>
-        <TextView
-            android:id="@+id/city_tv_title"
-            android:text="城市管理"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </RelativeLayout>
     <ImageView
-        android:id="@+id/city_line"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#DCDCDC"
-        android:layout_below="@id/city_top_layout"/>
-
-    <ListView
-        android:id="@+id/city_lv"
+        android:id="@+id/bing_pic_img2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/city_line"
-        android:divider="@null" />
+        android:scaleType="centerCrop" />
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/draweradd_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--下拉刷新-->
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_city"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <RelativeLayout
+                android:id="@+id/city_top_layout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#F5F5F5">
+                <!--android:background="#F5F5F5"-->
+                <ImageButton
+                    android:id="@+id/city_iv_back"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/icon_back"
+                    android:background="#0000"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
+                <ImageButton
+                    android:id="@+id/city_iv_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/icon_write"
+                    android:background="#0000"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"/>
+                <TextView
+                    android:id="@+id/city_tv_title"
+                    android:text="城市管理"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <ImageView
+                android:id="@+id/city_line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#DCDCDC"
+                android:layout_below="@id/city_top_layout"/>
+
+            <ListView
+                android:id="@+id/city_lv"
+                android:layout_width="match_parent"
+                android:layout_height="497dp"
+                android:layout_below="@id/city_line"
+                android:divider="@null" />
+
+            </LinearLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+        <fragment
+            android:id="@+id/choose_area_saved"
+            android:name="com.bean.xiaobai_weather.ChooseAreaFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            />
+
+    </android.support.v4.widget.DrawerLayout>
+
+
+
     <ImageView
         android:id="@+id/city_iv_add"
         android:layout_width="wrap_content"

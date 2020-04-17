@@ -2,7 +2,9 @@ package com.bean.xiaobai_weather;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bean.xiaobai_weather.city_manager.CityActivity;
 import com.bean.xiaobai_weather.db.City;
 import com.bean.xiaobai_weather.db.County;
 import com.bean.xiaobai_weather.db.Province;
@@ -109,9 +112,11 @@ public class ChooseAreaFragment extends Fragment {
                     queryCounties();
                 } else if (currentLevel == LEVEL_COUNTY) {
                     String weatherId = countyList.get(position).getWeatherId();
+                    String weathername = countyList.get(position).getCountyName();
                     if (getActivity() instanceof MainActivity) {
                         Intent intent = new Intent(getActivity(), WeatherActivity.class);
                         intent.putExtra("weather_id", weatherId);
+                        intent.putExtra("weather_name", weathername);
                         startActivity(intent);
                         getActivity().finish();
                     } else if (getActivity() instanceof WeatherActivity) {
@@ -119,6 +124,17 @@ public class ChooseAreaFragment extends Fragment {
                         activity.drawerLayout.closeDrawers();
                         activity.swipeRefresh.setRefreshing(true);
                         activity.requestWeather(weatherId);
+                    }
+                    else if (getActivity() instanceof CityActivity) {
+                        Intent intent = new Intent(getActivity(), WeatherActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("weather_id", weatherId);
+                        intent.putExtra("weather_name", weathername);
+                        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getActivity()).edit();
+                        editor.putString("weather", null);
+                        editor.apply();
+                        startActivity(intent);
+                        getActivity().finish();
                     }
                 }
             }
