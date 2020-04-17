@@ -30,6 +30,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.bean.xiaobai_weather.db.DBManager;
+import com.bean.xiaobai_weather.util.IconUtils;
 import com.bumptech.glide.Glide;
 import com.bean.xiaobai_weather.gson.Forecast;
 import com.bean.xiaobai_weather.gson.Lifestyle;
@@ -52,6 +53,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import org.joda.time.DateTime;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -92,11 +95,13 @@ public class WeatherActivity extends AppCompatActivity {
     private TextView so2Text;//空气质量--二氧化硫指数
 
     //高德
-    private Button locationbt;
+    //private Button locationbt;
     private String Gprovince;
     private String Gcity;
     private String Gdistrict;
     private LeftLargeView llView;
+
+    private ImageView iconnow;
 
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
@@ -104,7 +109,6 @@ public class WeatherActivity extends AppCompatActivity {
     public AMapLocationListener mLocationListener = new MyAMapLocationListener();
     //声明AMapLocationClientOption对象
     public AMapLocationClientOption mLocationOption = null;
-
 
     private LinearLayout forecastLayout;//线性布局对象--预报天气
     private LinearLayout lifestyleLayout;//线性布局对象--建议
@@ -154,17 +158,10 @@ public class WeatherActivity extends AppCompatActivity {
         so2Text = (TextView) findViewById(R.id.so2_text); //空气质量--二氧化硫指数
 
         //高德
-        locationbt = (Button)findViewById(R.id.locationButton);
         init();
-        locationbt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //String s = sHA1(WeatherActivity.this);//鉴权
-                //Log.e("sHA1：", s);
-                Toast.makeText(WeatherActivity.this,Gdistrict,Toast.LENGTH_SHORT).show();
 
-            }
-        });
+        //icon
+        iconnow = (ImageView)findViewById(R.id.icon_now);
 
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);//下拉刷新颜色
@@ -244,14 +241,14 @@ public class WeatherActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        String bingPic = prefs.getString("bing_pic", null);
-        if (bingPic != null) {
-            //如果有缓存数据就直接使用Glide来加载这张图片
-            Glide.with(this).load(bingPic).into(bingPicImg);
-        } else {
-            //如果没有缓存数据就调用loadBingPic()方法去请求今日的必应背景图
-            loadBingPic();
-        }
+//        String bingPic = prefs.getString("bing_pic", null);
+//        if (bingPic != null) {
+//            //如果有缓存数据就直接使用Glide来加载这张图片
+//            Glide.with(this).load(bingPic).into(bingPicImg);
+//        } else {
+//            //如果没有缓存数据就调用loadBingPic()方法去请求今日的必应背景图
+//            loadBingPic();
+//        }
     }
 
     /**
@@ -299,35 +296,35 @@ public class WeatherActivity extends AppCompatActivity {
                 });
             }
         });
-        loadBingPic();
+        //loadBingPic();
     }
 
     /**
      * 加载必应每日一图
      */
-    private void loadBingPic() {
-        String requestBingPic = "http://guolin.tech/api/bing_pic";
-        HttpUtil.sendOkHttpRequest(requestBingPic, new Callback() {
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final String bingPic = response.body().string();
-                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this).edit();
-                editor.putString("bing_pic", bingPic);
-                editor.apply();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Glide.with(WeatherActivity.this).load(bingPic).into(bingPicImg);
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-        });
-    }
+//    private void loadBingPic() {
+//        String requestBingPic = "http://guolin.tech/api/bing_pic";
+//        HttpUtil.sendOkHttpRequest(requestBingPic, new Callback() {
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException {
+//                final String bingPic = response.body().string();
+//                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this).edit();
+//                editor.putString("bing_pic", bingPic);
+//                editor.apply();
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Glide.with(WeatherActivity.this).load(bingPic).into(bingPicImg);
+//                    }
+//                });
+//            }
+//
+//            @Override
+//            public void onFailure(Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//        });
+//    }
 
     /**
      * 处理并展示Weather实体类中的数据。
@@ -345,6 +342,16 @@ public class WeatherActivity extends AppCompatActivity {
         //weatherInfoText.setText(weatherInfo);
         weatherlat.setText("纬度:"+lat);
         weatherlon.setText("经度:"+lon);
+        DateTime nowTime = DateTime.now();
+        int hourOfDay = nowTime.getHourOfDay();
+        if (hourOfDay > 6 && hourOfDay < 19) {
+            iconnow.setImageResource(IconUtils.getDayIconDark(weather.now.cond_code));
+            bingPicImg.setImageResource(IconUtils.getDayBack(weather.now.cond_code));
+        } else {
+            iconnow.setImageResource(IconUtils.getNightIconDark(weather.now.cond_code));
+            bingPicImg.setImageResource(IconUtils.getNightBack(weather.now.cond_code));
+        }
+
         //实时
         degreetext.setText(degree);
         fltext.setText(weather.now.fl+ "℃");
@@ -359,10 +366,10 @@ public class WeatherActivity extends AppCompatActivity {
         for (Forecast forecast : weather.forecastList) {
             View view = LayoutInflater.from(this).inflate(R.layout.forecast_item, forecastLayout, false);
             TextView dateText = (TextView) view.findViewById(R.id.date_text);
-            TextView infoTextd = (TextView) view.findViewById(R.id.info_text_d);
-            TextView infoTextn = (TextView) view.findViewById(R.id.info_text_n);
-//            ImageView icond = (ImageView)findViewById(R.id.icon_d);
-//            ImageView iconn = (ImageView)findViewById(R.id.icon_n);
+//            TextView infoTextd = (TextView) view.findViewById(R.id.info_text_d);
+//            TextView infoTextn = (TextView) view.findViewById(R.id.info_text_n);
+            ImageView icond = (ImageView)view.findViewById(R.id.info_icon_d);
+            ImageView iconn = (ImageView)view.findViewById(R.id.info_icon_n);
             TextView maxText = (TextView) view.findViewById(R.id.max_text);
             TextView minText = (TextView) view.findViewById(R.id.min_text);
             TextView dateweekday = (TextView) view.findViewById(R.id.date_weekday);
@@ -378,12 +385,10 @@ public class WeatherActivity extends AppCompatActivity {
 
             dateText.setText(date[1]+'/'+date[2]);
             //获得图
-            String imageicond = "m"+forecast.cond_code_d;
-            //Drawable icon_d = this.getResources(imageicond);
-            infoTextd.setText(forecast.cond_txt_d);
-            //icond.setImageDrawable(R.drawable.imageicond);
-            infoTextn.setText(forecast.cond_txt_n);
-//            iconn.setImageIcon("m"+forecast.cond_code_d);
+//            infoTextd.setText(forecast.cond_txt_d);
+            icond.setImageResource(IconUtils.getDayIconDark(forecast.cond_code_d));
+//            infoTextn.setText(forecast.cond_txt_n);
+            iconn.setImageResource(IconUtils.getNightIconDark(forecast.cond_code_n));
             maxText.setText(forecast.tmp_max+ "℃");
             minText.setText(forecast.tmp_min+ "℃");
             forecastLayout.addView(view);
