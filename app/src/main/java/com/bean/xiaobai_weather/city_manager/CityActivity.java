@@ -23,8 +23,10 @@ import com.bean.xiaobai_weather.R;
 import com.bean.xiaobai_weather.WeatherActivity;
 import com.bean.xiaobai_weather.db.DBManager;
 import com.bean.xiaobai_weather.db.DatabaseBean;
+import com.bean.xiaobai_weather.gson.Weather;
 import com.bean.xiaobai_weather.util.HttpUtil;
 import com.bean.xiaobai_weather.util.IconUtils;
+import com.bean.xiaobai_weather.util.Utility;
 import com.bumptech.glide.Glide;
 
 import org.joda.time.DateTime;
@@ -59,12 +61,16 @@ public class CityActivity extends AppCompatActivity implements View.OnClickListe
         adapter = new CityManagerAdapter(this, mDatas);
         cityLv.setAdapter(adapter);
         bingPicImg = (ImageView) findViewById(R.id.bing_pic_img2);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String weatherString = prefs.getString("weather", null);
+        Weather weather = Utility.handleWeatherResponse(weatherString);
         DateTime nowTime = DateTime.now();
         int hourOfDay = nowTime.getHourOfDay();
         if (hourOfDay > 6 && hourOfDay < 19) {
-            bingPicImg.setImageResource(R.mipmap.back_100d);
+            bingPicImg.setImageResource(IconUtils.getDayBack(weather.now.cond_code));
         } else {
-            bingPicImg.setImageResource(R.mipmap.back_100n);
+            bingPicImg.setImageResource(IconUtils.getNightBack(weather.now.cond_code));
         }
 
         drawerLayout = (DrawerLayout) findViewById(R.id.draweradd_layout);

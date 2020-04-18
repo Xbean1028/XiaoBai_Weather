@@ -605,4 +605,5 @@ public class WeatherActivity extends AppCompatActivity {
         return weekDays[w];
     }
 
+
 }
