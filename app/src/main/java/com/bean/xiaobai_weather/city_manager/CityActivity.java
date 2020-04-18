@@ -43,6 +43,7 @@ public class CityActivity extends AppCompatActivity implements View.OnClickListe
     private CityManagerAdapter adapter;
     public SwipeRefreshLayout swipeRefresh;//下拉刷新
     private ImageView bingPicImg;
+    private List<String> cityList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class CityActivity extends AppCompatActivity implements View.OnClickListe
         deleteIv = (ImageButton) findViewById(R.id.city_iv_delete);
         cityLv = (ListView) findViewById(R.id.city_lv);
         mDatas = new ArrayList<>();
+        cityList = DBManager.queryAllCityName();//获取数据库包含的城市信息列表
 //        添加点击监听事件
         addIv.setOnClickListener(this);
         deleteIv.setOnClickListener(this);
@@ -81,7 +83,11 @@ public class CityActivity extends AppCompatActivity implements View.OnClickListe
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                for(String city: cityList){
+                    requestWeather(city);
+                }
                 //requestWeather(mWeatherId);
+                adapter.notifyDataSetChanged();
                 Toast.makeText(CityActivity.this, "I am try", Toast.LENGTH_SHORT).show();
                 swipeRefresh.setRefreshing(false);//下拉刷新恢复
             }
@@ -137,5 +143,48 @@ public class CityActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+    /**
+     * 根据天气id请求城市天气信息。
+     */
+    public void requestWeather(final String weatherId) {
+        String weatherUrl = "https://free-api.heweather.net/s6/weather?location=" + weatherId + "&key=e59171beb7a84b0c9483bc75910f4b68";
+        //String weatherUrl = "http://guolin.tech/api/weather?cityid=" + weatherId + "&key=bc0418b57b2d4918819d3974ac1285d9";
+        //String airUrl = "https://free-api.heweather.net/s6/air/now?location=" + weatherId + "&key=e59171beb7a84b0c9483bc75910f4b68";
+        HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                final String responseText = response.body().string();
+                final Weather weather = Utility.handleWeatherResponse(responseText);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (weather != null && "ok".equals(weather.status)) {
+                            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(CityActivity.this).edit();
+                            editor.putString("weather", responseText);
+                            editor.apply();
+                        } else {
+                            if (weather == null){
+                                Toast.makeText(CityActivity.this, responseText, Toast.LENGTH_SHORT).show();
+                            }
+                            Toast.makeText(CityActivity.this, "获取天气信息失败", Toast.LENGTH_SHORT).show();
+                        }
+                        swipeRefresh.setRefreshing(false);//下拉刷新恢复
+                    }
+                });
+            }
 
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(CityActivity.this, "获取天气信息失败", Toast.LENGTH_SHORT).show();
+                        swipeRefresh.setRefreshing(false);//下拉刷新恢复
+                    }
+                });
+            }
+        });
+        //loadBingPic();
+    }
 }
