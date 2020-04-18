@@ -10,11 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="3dp"
-        android:background="#8000"
         app:cardCornerRadius="10dp"
         app:cardElevation="5dp"
         app:contentPadding="10dp"
-        app:cardBackgroundColor="#8000">
+        app:cardBackgroundColor="@color/weatherbackColor">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -24,7 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:textColor="#fff"
+                android:textColor="@color/weathertextColor"
                 android:textSize="40sp"
                 android:text="北京"/>
             <TextView
@@ -32,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
-                android:textColor="#fff"
+                android:textColor="@color/weathertextColor"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="20dp"
                 android:text="12℃"/>
@@ -42,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
-                android:textColor="#fff"
+                android:textColor="@color/weathertextColor"
                 android:layout_toLeftOf="@id/item_city_tv_temp"
                 android:layout_marginRight="15dp"
                 android:text="晴"/>

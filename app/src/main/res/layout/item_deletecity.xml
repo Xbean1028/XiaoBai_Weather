@@ -13,7 +13,7 @@
         app:cardElevation="5dp"
         app:cardCornerRadius="10dp"
         app:contentPadding="20dp"
-        app:cardBackgroundColor="#88c1c0c0">
+        app:cardBackgroundColor="@color/weatherbackColor">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp">
@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:text="北京"
                 android:textSize="20sp"
+                android:textColor="@color/weathertextColor"
                 android:layout_toRightOf="@id/item_delete_iv"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"

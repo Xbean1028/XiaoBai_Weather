@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="15dp"
-    android:background="#8000">
+    android:background="@color/weatherbackColor">
 
     <TextView
         android:layout_width="wrap_content"
@@ -12,8 +12,9 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
         android:text="实时天气信息"
-        android:textColor="#fff"
+        android:textColor="@color/weathertextColor"
         android:textSize="20sp"/>
+    <!--android:textColor="#fff"-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="#fff"
+                    android:textColor="@color/weathertextColor"
                     android:textSize="30sp" />
 
                 <TextView
@@ -44,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="温度"
-                    android:textColor="#fff" />
+                    android:textColor="@color/weathertextColor" />
 
             </LinearLayout>
 
@@ -66,7 +67,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="#fff"
+                    android:textColor="@color/weathertextColor"
                     android:textSize="30sp"/>
 
                 <TextView
@@ -74,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="天气"
-                    android:textColor="#fff"/>
+                    android:textColor="@color/weathertextColor"/>
 
             </LinearLayout>
 
@@ -102,7 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="天气"
-                    android:textColor="#fff" />
+                    android:textColor="@color/weathertextColor" />
 
             </LinearLayout>
 
@@ -131,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="#fff"
+                    android:textColor="@color/weathertextColor"
                     android:textSize="30sp" />
 
                 <TextView
@@ -139,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="体感温度"
-                    android:textColor="#fff" />
+                    android:textColor="@color/weathertextColor" />
 
             </LinearLayout>
 
@@ -161,7 +162,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="#fff"
+                    android:textColor="@color/weathertextColor"
                     android:textSize="30sp"/>
 
                 <TextView
@@ -169,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="相对湿度"
-                    android:textColor="#fff"/>
+                    android:textColor="@color/weathertextColor"/>
 
             </LinearLayout>
 
@@ -190,7 +191,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="#fff"
+                    android:textColor="@color/weathertextColor"
                     android:textSize="25sp"/>
 
                 <TextView
@@ -198,7 +199,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="降水量"
-                    android:textColor="#fff"/>
+                    android:textColor="@color/weathertextColor"/>
 
             </LinearLayout>
 
@@ -227,7 +228,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="#fff"
+                    android:textColor="@color/weathertextColor"
                     android:textSize="25sp"/>
 
                 <TextView
@@ -235,7 +236,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="风向"
-                    android:textColor="#fff"/>
+                    android:textColor="@color/weathertextColor"/>
 
             </LinearLayout>
 
@@ -257,7 +258,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="#fff"
+                    android:textColor="@color/weathertextColor"
                     android:textSize="25sp"/>
 
                 <TextView
@@ -265,7 +266,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="风力"
-                    android:textColor="#fff"/>
+                    android:textColor="@color/weathertextColor"/>
 
             </LinearLayout>
 
@@ -287,7 +288,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:textColor="#fff"
+                    android:textColor="@color/weathertextColor"
                     android:textSize="25sp"/>
 
                 <TextView
@@ -295,7 +296,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:text="风速"
-                    android:textColor="#fff"/>
+                    android:textColor="@color/weathertextColor"/>
 
             </LinearLayout>
 
