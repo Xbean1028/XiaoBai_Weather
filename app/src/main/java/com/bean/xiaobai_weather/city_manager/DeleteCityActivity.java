@@ -27,6 +27,8 @@ import com.bean.xiaobai_weather.db.DBManager;
 import com.bean.xiaobai_weather.util.HttpUtil;
 import com.bumptech.glide.Glide;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,14 +61,12 @@ public class DeleteCityActivity extends AppCompatActivity implements View.OnClic
         deleteLv.setAdapter(adapter);
 
         bingPicImg = (ImageView) findViewById(R.id.bing_pic_img3);
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String bingPic = prefs.getString("bing_pic", null);
-        if (bingPic != null) {
-            //如果有缓存数据就直接使用Glide来加载这张图片
-            Glide.with(this).load(bingPic).into(bingPicImg);
+        DateTime nowTime = DateTime.now();
+        int hourOfDay = nowTime.getHourOfDay();
+        if (hourOfDay > 6 && hourOfDay < 19) {
+            bingPicImg.setImageResource(R.mipmap.back_100d);
         } else {
-            //如果没有缓存数据就调用loadBingPic()方法去请求今日的必应背景图
-            loadBingPic();
+            bingPicImg.setImageResource(R.mipmap.back_100n);
         }
     }
 
@@ -95,28 +95,5 @@ public class DeleteCityActivity extends AppCompatActivity implements View.OnClic
                 finish();
                 break;
         }
-    }
-    private void loadBingPic() {
-        String requestBingPic = "http://guolin.tech/api/bing_pic";
-        HttpUtil.sendOkHttpRequest(requestBingPic, new Callback() {
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final String bingPic = response.body().string();
-                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(DeleteCityActivity.this).edit();
-                editor.putString("bing_pic", bingPic);
-                editor.apply();
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Glide.with(DeleteCityActivity.this).load(bingPic).into(bingPicImg);
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-        });
     }
 }

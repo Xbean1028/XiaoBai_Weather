@@ -9,6 +9,28 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="小白天气"
+            android:layout_weight="1"
+            android:textColor="#fff"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:src="@drawable/icon_loc"
+            android:id="@+id/icon_loc"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal">
@@ -32,38 +54,21 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="false"
-        android:orientation="horizontal">
+    <!--<LinearLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:clickable="false"-->
+        <!--android:orientation="horizontal">-->
 
-        <com.heweather.plugin.view.LeftLargeView
-            android:id="@+id/ll_view"
-            android:layout_width="match_parent"
-            android:clickable="false"
-            android:background="#8000"
-            android:layout_height="60dp"/>
+        <!--<com.heweather.plugin.view.LeftLargeView-->
+            <!--android:id="@+id/ll_view"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:clickable="false"-->
+            <!--android:background="#0000"-->
+            <!--android:layout_height="60dp"/>-->
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <!--</LinearLayout>-->
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="小白天气"
-            android:textColor="#fff"
-            android:textSize="20sp" />
-
-        <!--<ImageView-->
-            <!--android:layout_width="40dp"-->
-            <!--android:layout_height="40dp"-->
-            <!--android:background="#88fcfcfc"-->
-            <!--android:id="@+id/icon_now"/>-->
-    </LinearLayout>
 
 
 

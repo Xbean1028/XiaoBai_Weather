@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textColor="@color/weathertextColor"
-                android:textSize="40sp"
+                android:textSize="30sp"
                 android:text="北京"/>
             <TextView
                 android:id="@+id/item_city_tv_temp"

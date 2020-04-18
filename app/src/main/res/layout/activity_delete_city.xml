@@ -11,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="#F5F5F5"
+        android:background="#00000000"
         android:id="@+id/delete_top_layout">
         <ImageView
             android:id="@+id/delete_iv_error"

@@ -102,6 +102,7 @@ public class WeatherActivity extends AppCompatActivity {
     private LeftLargeView llView;
 
     private ImageView iconnow;
+    private ImageView iconloc;
 
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
@@ -161,6 +162,7 @@ public class WeatherActivity extends AppCompatActivity {
         init();
 
         //icon
+        iconloc = (ImageView)findViewById(R.id.icon_loc);
         iconnow = (ImageView)findViewById(R.id.icon_now);
 
         swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
@@ -185,13 +187,13 @@ public class WeatherActivity extends AppCompatActivity {
                 DBManager.addCityInfo(mWeatherId,"");
             }
             showWeatherInfo(weather);
-                try {
-                    String location  =Gdistrict;
-                    HeWeatherConfig.init("ad1f9cb4bc114c719ab5c56a728b4220",location);//定位本地
-                    showWeatherlittle();
-                } catch (Exception e) {
-                    Log.e(TAG,Log.getStackTraceString(e));
-                }
+//                try {
+//                    String location  =Gdistrict;
+//                    HeWeatherConfig.init("ad1f9cb4bc114c719ab5c56a728b4220",location);//定位本地
+//                    showWeatherlittle();
+//                } catch (Exception e) {
+//                    Log.e(TAG,Log.getStackTraceString(e));
+//                }
         } else {
             // 无缓存时去服务器查询天气
             mWeatherId = getIntent().getStringExtra("weather_name");
@@ -205,30 +207,38 @@ public class WeatherActivity extends AppCompatActivity {
             //weatherLayout.setVisibility(View.INVISIBLE);
             requestWeather(mWeatherId);
             Log.d(TAG, "bean requestWeather"+mWeatherId);
-            try {
-                String location  =Gdistrict;
-                HeWeatherConfig.init("ad1f9cb4bc114c719ab5c56a728b4220",location);//定位本地
-                showWeatherlittle();
-            } catch (Exception e) {
-                Log.e(TAG,Log.getStackTraceString(e));
-            }
-
+//            try {
+//                String location  =Gdistrict;
+//                HeWeatherConfig.init("ad1f9cb4bc114c719ab5c56a728b4220",location);//定位本地
+//                showWeatherlittle();
+//            } catch (Exception e) {
+//                Log.e(TAG,Log.getStackTraceString(e));
+//            }
         }
         //设置下拉刷新监听器
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 requestWeather(mWeatherId);
-                try {
-                    String location  =Gdistrict;
-                    if (Gdistrict==null){
-                        location = mWeatherId;;
-                    }
-                    HeWeatherConfig.init("ad1f9cb4bc114c719ab5c56a728b4220",location);//定位本地
-                    showWeatherlittle();
-                } catch (Exception e) {
-                    Log.e(TAG,Log.getStackTraceString(e));
-                }
+//                try {
+//                    String location  =Gdistrict;
+//                    if (Gdistrict==null){
+//                        location = mWeatherId;;
+//                    }
+//                    HeWeatherConfig.init("ad1f9cb4bc114c719ab5c56a728b4220",location);//定位本地
+//                    showWeatherlittle();
+//                } catch (Exception e) {
+//                    Log.e(TAG,Log.getStackTraceString(e));
+//                }
+            }
+        });
+        //本地天气
+        iconloc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.closeDrawers();
+                swipeRefresh.setRefreshing(true);
+                requestWeather(Gdistrict);
             }
         });
         //请求新选择城市的天气信息
@@ -447,67 +457,65 @@ public class WeatherActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AutoUpdateService.class);
         startService(intent);
     }
-    private void showWeatherlittle() {
-        //左侧大布局右侧双布局控件
-//        LeftLargeView llView = (LeftLargeView) findViewById(R.id.ll_view);
-        llView = (LeftLargeView) findViewById(R.id.ll_view);
-
-        llView.setOnClickListener(null);
-        llView.setEnabled(false);//不允许点击，因为我不想跳转
-        //取消默认背景
-        llView.setDefaultBack(false);
-////设置布局的背景圆角角度，颜色，边框宽度，边框颜色
+//    private void showWeatherlittle() {
+//        //左侧大布局右侧双布局控件
+//        //        LeftLargeView llView = (LeftLargeView) findViewById(R.id.ll_view);
+//        llView = (LeftLargeView) findViewById(R.id.ll_view);
+//        llView.setOnClickListener(null);
+//        llView.setEnabled(false);//不允许点击，因为我不想跳转
+//        //取消默认背景
+//        llView.setDefaultBack(false);
+//        ////设置布局的背景圆角角度，颜色，边框宽度，边框颜色
+//        //        llView.setStroke(5, Color.parseColor("#313a44"), 1, Color.BLACK);
+//        //获取左侧大布局
+//        LinearLayout leftLayout = llView.getLeftLayout();
+//        //获取右上布局
+//        leftLayout.removeAllViews();//清理一下
+//        LinearLayout rightTopLayout = llView.getRightTopLayout();
+//        //获取右下布局
+//        rightTopLayout.removeAllViews();//清理一下
+//        LinearLayout rightBottomLayout = llView.getRightBottomLayout();
+//        rightBottomLayout.removeAllViews();//清理一下
+//
+//        //设置布局的背景圆角角度（单位：dp），颜色，边框宽度（单位：px），边框颜色
 //        llView.setStroke(5, Color.parseColor("#313a44"), 1, Color.BLACK);
-
-//获取左侧大布局
-        LinearLayout leftLayout = llView.getLeftLayout();
-//获取右上布局
-        leftLayout.removeAllViews();//清理一下
-        LinearLayout rightTopLayout = llView.getRightTopLayout();
-//获取右下布局
-        rightTopLayout.removeAllViews();//清理一下
-        LinearLayout rightBottomLayout = llView.getRightBottomLayout();
-        rightBottomLayout.removeAllViews();//清理一下
-
-//设置布局的背景圆角角度（单位：dp），颜色，边框宽度（单位：px），边框颜色
-        llView.setStroke(5, Color.parseColor("#313a44"), 1, Color.BLACK);
-
-//添加温度描述到左侧大布局
-//第一个参数为需要加入的布局
-//第二个参数为文字大小，单位：sp
-//第三个参数为文字颜色，默认白色
-        llView.addTemp(rightTopLayout, 14, Color.WHITE);//温度描述
-        //llView.addTemp(leftLayout, 40, Color.WHITE);
-//添加温度图标到右上布局，第二个参数为图标宽高（宽高1：1，单位：dp）
-        llView.addWeatherIcon(leftLayout, 60);//温度描述
-        //llView.addWeatherIcon(rightTopLayout, 14);
-//添加预警图标到右上布局
-        llView.addAlarmIcon(rightTopLayout, 14);
-//添加预警描述到右上布局
-        llView.addAlarmTxt(rightTopLayout, 14);
-//添加文字AQI到右上布局
-        llView.addAqiText(rightTopLayout, 14);
-//添加空气质量到右上布局
-        llView.addAqiQlty(rightTopLayout, 14);
-//添加空气质量数值到右上布局
-        llView.addAqiNum(rightTopLayout, 14);
-//添加地址信息到右上布局
-        llView.addLocation(rightTopLayout, 14, Color.WHITE);
-//添加天气描述到右下布局
-        llView.addCond(rightBottomLayout, 14, Color.WHITE);
-//添加风向图标到右下布局
-        llView.addWindIcon(rightBottomLayout, 14);
-//添加风力描述到右下布局
-        llView.addWind(rightBottomLayout, 14, Color.WHITE);
-//添加降雨图标到右下布局
-        llView.addRainIcon(rightBottomLayout, 14);
-//添加降雨描述到右下布局
-        llView.addRainDetail(rightBottomLayout, 14, Color.WHITE);
-//设置控件的对齐方式，默认居中
-        llView.setViewGravity(HeContent.GRAVITY_LEFT);
-//显示布局
-        llView.show();
-    }
+//
+//        //添加温度描述到左侧大布局
+//        //第一个参数为需要加入的布局
+//        //第二个参数为文字大小，单位：sp
+//        //第三个参数为文字颜色，默认白色
+//        llView.addTemp(rightTopLayout, 14, Color.WHITE);//温度描述
+//        //llView.addTemp(leftLayout, 40, Color.WHITE);
+//        //添加温度图标到右上布局，第二个参数为图标宽高（宽高1：1，单位：dp）
+//        llView.addWeatherIcon(leftLayout, 60);//温度描述
+//        //llView.addWeatherIcon(rightTopLayout, 14);
+//        //添加预警图标到右上布局
+//        llView.addAlarmIcon(rightTopLayout, 14);
+//        //添加预警描述到右上布局
+//        llView.addAlarmTxt(rightTopLayout, 14);
+//        //添加文字AQI到右上布局
+//        llView.addAqiText(rightTopLayout, 14);
+//        //添加空气质量到右上布局
+//        llView.addAqiQlty(rightTopLayout, 14);
+//        //添加空气质量数值到右上布局
+//        llView.addAqiNum(rightTopLayout, 14);
+//        //添加地址信息到右上布局
+//        llView.addLocation(rightTopLayout, 14, Color.WHITE);
+//        //添加天气描述到右下布局
+//        llView.addCond(rightBottomLayout, 14, Color.WHITE);
+//        //添加风向图标到右下布局
+//        llView.addWindIcon(rightBottomLayout, 14);
+//        //添加风力描述到右下布局
+//        llView.addWind(rightBottomLayout, 14, Color.WHITE);
+//        //添加降雨图标到右下布局
+//        llView.addRainIcon(rightBottomLayout, 14);
+//        //添加降雨描述到右下布局
+//        llView.addRainDetail(rightBottomLayout, 14, Color.WHITE);
+//        //设置控件的对齐方式，默认居中
+//        llView.setViewGravity(HeContent.GRAVITY_LEFT);
+//        //显示布局
+//        llView.show();
+//    }
 
     private void init() {
         //初始化定位
