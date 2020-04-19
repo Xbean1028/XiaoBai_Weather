@@ -17,15 +17,25 @@
 4. 定位当前城市并显示天气。
 5. 首页天气和城市列表均可下拉刷新
 
-## 截图
 
-![]()
 
 ## 重要声明
 
 代码中使用的和风API密钥，请于 [和风官网](<https://dev.heweather.com/docs/sdk/android>) 申请，本人的使用次数有限，高德SDK的Key同样于官网申请，谢谢
 
 **本项目属于课程设计作业，2020.6之前，本项目处于未验收阶段，本项目仅供学习，不得复制下载**
+
+## 截图
+
+![首页](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/首页.jpg)
+
+![城市管理](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/城市管理.jpg)
+
+![预报](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/预报.jpg)
+
+![删除列表](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/删除列表.jpg)
+
+![添加](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/添加.jpg)
 
 ## License
 
