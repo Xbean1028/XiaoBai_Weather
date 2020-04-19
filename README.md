@@ -26,14 +26,17 @@
 **本项目属于课程设计作业，2020.6之前，本项目处于未验收阶段，本项目仅供学习，不得复制下载**
 
 ## 截图
+<div align=center><img width="150" height="300" src="https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/首页.jpg" alt="首页"/>
+</div>
+<div align=center><img width="150" height="300" src="https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/城市管理.jpg" alt="城市管理"/>
+</div>
+<div align=center><img width="150" height="300" src="https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/预报.jpg" alt="预报"/>
+</div>
+<div align=center><img width="150" height="300" src="https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/删除列表.jpg" alt="删除列表"/>
+</div>
+<div align=center><img width="150" height="300" src="https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/添加.jpg" alt="添加"/>
+</div>
 
-![首页](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/首页.jpg =200x)
-![城市管理](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/城市管理.jpg =200x)
-
-![预报](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/预报.jpg =200x)
-![删除列表](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/删除列表.jpg =200x)
-
-![添加](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/添加.jpg =200x)
 
 ## License
 
