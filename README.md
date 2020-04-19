@@ -27,14 +27,10 @@
 
 ## 截图
 <div align=center><img width="150" height="300" src="https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/首页.jpg" alt="首页"/>
-</div>
-<div align=center><img width="150" height="300" src="https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/城市管理.jpg" alt="城市管理"/>
-</div>
-<div align=center><img width="150" height="300" src="https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/预报.jpg" alt="预报"/>
-</div>
-<div align=center><img width="150" height="300" src="https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/删除列表.jpg" alt="删除列表"/>
-</div>
-<div align=center><img width="150" height="300" src="https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/添加.jpg" alt="添加"/>
+<img width="150" height="300" src="https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/城市管理.jpg" alt="城市管理"/>
+<img width="150" height="300" src="https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/预报.jpg" alt="预报"/>
+<img width="150" height="300" src="https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/删除列表.jpg" alt="删除列表"/>
+<img width="150" height="300" src="https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/添加.jpg" alt="添加"/>
 </div>
 
 
