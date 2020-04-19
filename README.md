@@ -27,13 +27,13 @@
 
 ## 截图
 
-![首页](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/首页.jpg width="300" height="500")
-![城市管理](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/城市管理.jpg width="300" height="500")
+![首页](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/首页.jpg =200x)
+![城市管理](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/城市管理.jpg =200x)
 
-![预报](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/预报.jpg width="300" height="500")
-![删除列表](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/删除列表.jpg width="300" height="500")
+![预报](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/预报.jpg =200x)
+![删除列表](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/删除列表.jpg =200x)
 
-![添加](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/添加.jpg width="300" height="500")
+![添加](https://github.com/Xbean1028/XiaoBai_Weather/blob/master/截图/添加.jpg =200x)
 
 ## License
 
