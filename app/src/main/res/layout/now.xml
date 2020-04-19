@@ -19,7 +19,7 @@
             android:text="小白天气"
             android:layout_weight="1"
             android:textColor="#fff"
-            android:textSize="30sp" />
+            android:textSize="20sp" />
 
         <ImageView
             android:layout_width="50dp"

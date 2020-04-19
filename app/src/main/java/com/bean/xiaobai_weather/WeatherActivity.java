@@ -31,6 +31,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.bean.xiaobai_weather.db.DBManager;
 import com.bean.xiaobai_weather.util.IconUtils;
+import com.bean.xiaobai_weather.util.NetworkUtil;
 import com.bumptech.glide.Glide;
 import com.bean.xiaobai_weather.gson.Forecast;
 import com.bean.xiaobai_weather.gson.Lifestyle;
@@ -175,6 +176,16 @@ public class WeatherActivity extends AppCompatActivity {
         cityList = DBManager.queryAllCityName();//获取数据库包含的城市信息列表
         Boolean Flag_intent = false;
 
+        if (!NetworkUtil.isNetworkAvailable(this)){
+            navButton.setVisibility(View.GONE);
+            iconloc.setVisibility(View.GONE);
+            Toast.makeText(WeatherActivity.this, "请检查网络", Toast.LENGTH_LONG).show();
+        }
+        if (NetworkUtil.isNetworkAvailable(this)){
+            navButton.setVisibility(View.VISIBLE);
+            iconloc.setVisibility(View.VISIBLE);
+        }
+
         if (weatherString != null) {
             // 有缓存时直接解析天气数据
             Flag_intent = false;
@@ -219,6 +230,14 @@ public class WeatherActivity extends AppCompatActivity {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if (NetworkUtil.isNetworkAvailable(WeatherActivity.this)){
+                    navButton.setVisibility(View.VISIBLE);
+                    iconloc.setVisibility(View.VISIBLE);
+                }else {
+                    navButton.setVisibility(View.GONE);
+                    iconloc.setVisibility(View.GONE);
+                    Toast.makeText(WeatherActivity.this, "请检查网络", Toast.LENGTH_LONG).show();
+                }
                 requestWeather(mWeatherId);
 //                try {
 //                    String location  =Gdistrict;

@@ -86,7 +86,10 @@ public class CityActivity extends AppCompatActivity implements View.OnClickListe
                 for(String city: cityList){
                     requestWeather(city);
                 }
-                //requestWeather(mWeatherId);
+                //requestWeather(mWeatherId);mDatas.clear();
+                List<DatabaseBean> list = DBManager.queryAllInfo();
+                mDatas.clear();
+                mDatas.addAll(list);
                 adapter.notifyDataSetChanged();
                 Toast.makeText(CityActivity.this, "I am try", Toast.LENGTH_SHORT).show();
                 swipeRefresh.setRefreshing(false);//下拉刷新恢复

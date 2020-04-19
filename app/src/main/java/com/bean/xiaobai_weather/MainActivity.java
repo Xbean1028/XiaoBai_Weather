@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.bean.xiaobai_weather.db.DBManager;
+import com.bean.xiaobai_weather.util.NetworkUtil;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
